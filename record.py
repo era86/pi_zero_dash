@@ -18,6 +18,6 @@ os.mkdir(recording_path)
 
 segments_path = os.path.join(recording_path, "%03d.avi")
 
-command = "ffmpeg -i /dev/video0 -c:v {} -an -sn -dn -segment_time {} -f segment -reset_timestamps 1 {}".format(ENCODING, SEGMENT_TIME, segments_path)
+command = "ffmpeg -i /dev/video0 -c:v {} -vf \"transpose=2,transpose=2\" -an -sn -dn -segment_time {} -f segment -reset_timestamps 1 {}".format(ENCODING, SEGMENT_TIME, segments_path)
 
 subprocess.call(command, shell=True)
