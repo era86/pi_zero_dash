@@ -3,7 +3,8 @@
 import os
 import shutil
 
-ROOT_PATH = "/home/pi"
+ROOT_PATH = os.getenv("ROOT_PATH", "/home/pi")
+RECORDINGS_PATH = os.getenv("RECORDINGS_PATH", "recordings")
 PERCENTAGE_THRESHOLD = 25.0
 
 statvfs = os.statvfs(ROOT_PATH)
@@ -13,10 +14,8 @@ total_bytes = statvfs.f_frsize * statvfs.f_blocks
 
 free_bytes_percentage = ((1.0 * free_bytes) / total_bytes) * 100
 
-print free_bytes_percentage 
-
 if free_bytes_percentage < PERCENTAGE_THRESHOLD:
-    recordings_path = os.path.join(ROOT_PATH, "recordings")
+    recordings_path = os.path.join(ROOT_PATH, RECORDINGS_PATH)
     
     recordings = []
     for dir_name in os.listdir(recordings_path):

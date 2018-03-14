@@ -4,14 +4,16 @@ import subprocess
 import datetime
 import os
 
-ROOT_PATH = "/home/pi/recordings"
+ROOT_PATH = os.getenv("ROOT_PATH", "/home/pi")
+RECORDINGS_PATH = os.getenv("RECORDINGS_PATH", "recordings")
 DATE_FMT = "%Y_%m_%d_%H_%M_%S"
 SEGMENT_TIME = 30
-ENCODING = "copy"
+ENCODING = os.getenv("ENCODING", "copy")
+
+os.mkdir(RECORDINGS_PATH)
 
 new_dir = datetime.datetime.now().strftime(DATE_FMT)
-
-recording_path = os.path.join(ROOT_PATH, new_dir)
+recording_path = os.path.join(ROOT_PATH, RECORDINGS_PATH, new_dir)
 os.mkdir(recording_path)
 
 segments_path = os.path.join(recording_path, "%03d.avi")
